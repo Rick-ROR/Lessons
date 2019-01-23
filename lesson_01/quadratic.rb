@@ -3,7 +3,7 @@
 print 'Ввведите коэффициенты A B C через пробел: '
 abc = gets.chomp.split(" ")
 
-a, b, c = abc.map{ |x| x.to_i }
+a, b, c = abc.map{ |x| x.to_f }
 
 dis = b**2 - 4 * a * c
 puts "Дискриминант равен #{dis};"
