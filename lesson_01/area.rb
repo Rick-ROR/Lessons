@@ -7,5 +7,5 @@ a = gets.chomp.to_f
 print "Введите высоту треугольника: "
 h = gets.chomp.to_f
 
-area = 1 / 2.0 * a * h
+area = 0.5 * a * h
 puts "Площадь данного треугольника равна #{area}."
