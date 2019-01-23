@@ -8,7 +8,7 @@ a, b, c = abc.map{ |x| x.to_i }
 dis = b**2 - 4 * a * c
 puts "Дискриминант равен #{dis};"
 
-sqrt_dis = Math.sqrt(dis)
+sqrt_dis = Math.sqrt(dis) if dis >= 0
 
 if dis > 0
   x1 = (-b - sqrt_dis) / (2 * a)
