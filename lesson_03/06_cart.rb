@@ -1,6 +1,6 @@
 #!/usr/bin/ruby -w
 # coding: utf-8
-cart = Hash.new
+cart = {}
 
 loop do
   print "Введите название товара:\t"

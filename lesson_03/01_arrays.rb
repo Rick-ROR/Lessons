@@ -7,11 +7,11 @@ require 'date'
 months = Hash.new
 
 Date::MONTHNAMES.each_with_index do |month, i|
-  next if month.nil?
+  next unless month
   months[month] = Date.civil(2019, i, -1).day
 end
 
-for month in months
+months.each do |month|
   puts month[0] if month[1] == 30
 end
 
@@ -37,7 +37,7 @@ print "#{fibonacci}\n"
 vowels = Hash.new
 
 ('a'..'z').each.with_index(1) do |letter, i|
-  vowels[letter] = i if letter =~ /[aeiou]/i
+  vowels[letter] = i if %w[a e i o u].include?(letter)
 end
 
 print "#{vowels}\n"

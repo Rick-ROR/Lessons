@@ -6,7 +6,7 @@ print 'Ввведите дату в формате 2019.1.24: '
 year, month, day = gets.chomp.split(/[\s.,]/).map(&:to_i)
 
 months = [0]
-for i in 1..12
+1.upto(12) do |i|
   months << Date.civil(2019, i, -1).day
 end
 
@@ -19,6 +19,6 @@ else
   months[2] = 28
 end
 
-day_num = months[0..month].inject(0, :+)
+day_num = months[0..month].sum
 
 puts "#{year}.#{month}.#{day} это #{day_num} день в году."
