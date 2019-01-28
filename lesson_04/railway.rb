@@ -50,13 +50,6 @@ class Route
     @route_hsh = {first.name => first, last.name => last}
   end
 
-  # возвращает список станций hash-ем,
-  # можно было задать attr_reader :route, чтобы получать hash,
-  # но писать потом в коде других классов route.route как-то не очень
-  def to_hash
-    @route_hsh
-  end
-
   # можно добавить станцию указав её номер на маршруте
   def add_station(station, number)
     # если такая станцию уже есть
