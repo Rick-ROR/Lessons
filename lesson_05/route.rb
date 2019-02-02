@@ -57,4 +57,5 @@ class Route
     @route_hsh.keys.each_with_index {|station, index| print "= #{index}# #{station} = "}
     puts
   end
+
 end

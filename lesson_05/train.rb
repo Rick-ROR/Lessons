@@ -126,8 +126,14 @@ class Train
     puts "Предыдущая станция была #{stations[index - 1]}."
   end
 
-  # так как эти методы не указаны в ТЗ интерфейса
+# так как эти методы не указаны в ТЗ интерфейса и используются только в методах объекта
  protected
+  
+# вовзращает true если 0
+  def stopped?
+    @speed.zero?
+  end
+
 # ускрояем поезд на +10
   def speed_up
     unless :current_station
@@ -136,11 +142,6 @@ class Train
     end
     @speed += 10
     puts "Внимание! Поезд #{@number} увеличивает скорость."
-  end
-
-# вовзращает true если 0
-  def stopped?
-    @speed.zero?
   end
 
 # останаливаем поезд
