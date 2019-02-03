@@ -5,6 +5,11 @@ require_relative 'route'
 require_relative 'train'
 require_relative 'wagon'
 
+trap 'SIGINT' do
+  puts 'Ctrl+C => Exiting'
+  exit 130
+end
+
 class Railway
 
   def initialize
@@ -25,8 +30,7 @@ class Railway
     '3 - управление поездами',
     '0 - выход']
 
-    x = 0
-    while x.zero? do
+    while true do
       text.each { |msg| puts msg }
       print "Ваш выбор:\t"
       user = gets.chomp
@@ -35,16 +39,16 @@ class Railway
       when 1 then menu_stations
       when 2 then menu_routes
       when 3 then menu_trains
-      when 0 then x = 1
+      when 0 then break
       else puts 'Такого элемента нет в меню!'
       end
     end
   end
 
   private
-
+  # оставил комментарий https://github.com/Rick-ROR/Lessons_ruby/commit/81a31650d87bfc7b18472a20f9721b49c203fad0#r32172759
   def number?(number)
-    if number == number.to_i.to_s
+    if number =~ /^\d+$/
       true
     else
       puts 'Похоже вы ввели не цифру!'
@@ -59,8 +63,7 @@ class Railway
             '3 - список поездов на станции',
             '0 - назад в главное меню']
 
-    x = 0
-    while x.zero? do
+    while true do
       text.each { |msg| puts msg }
       print "Ваш выбор:\t"
       user = gets.chomp
@@ -69,7 +72,7 @@ class Railway
       when 1 then menu_station_new
       when 2 then menu_station_list
       when 3 then menu_station_trains_list
-      when 0 then x = 1
+      when 0 then break
       else puts 'Такого элемента нет в меню!'
       end
     end
@@ -83,8 +86,7 @@ class Railway
             '4 - просмотреть список станций на маршруте',
             '0 - назад в главное меню']
 
-    x = 0
-    while x.zero? do
+    while true do
       text.each { |msg| puts msg }
       print "Ваш выбор:\t"
       user = gets.chomp
@@ -94,7 +96,7 @@ class Railway
       when 2 then menu_route_add_station
       when 3 then menu_route_del_station
       when 4 then menu_route_show_stations
-      when 0 then x = 1
+      when 0 then break
       else puts 'Такого элемента нет в меню!'
       end
     end
@@ -110,8 +112,7 @@ class Railway
             '6 - прошлая станция',
             '0 - назад в главное меню']
 
-    x = 0
-    while x.zero? do
+    while true do
       text.each { |msg| puts msg }
       print "Ваш выбор:\t"
       user = gets.chomp
@@ -123,13 +124,11 @@ class Railway
       when 4 then menu_train_set_route
       when 5 then menu_train_set_next
       when 6 then menu_train_set_prev
-      when 0 then x = 1
+      when 0 then break
       else puts 'Такого элемента нет в меню!'
       end
     end
   end
-
-
 
   def hash_select(hash)
     keys = hash.keys
@@ -147,6 +146,7 @@ class Railway
       puts 'Данный элемент отсустувет в списке!'
     end
   end
+
 # ================================= методы-меню для станций =========================
   def menu_station_new
     print "Ввведите название станции:\t"
@@ -171,7 +171,7 @@ class Railway
   def menu_station_trains_list
     puts 'Выберите станцию:'
     station = hash_select(@stations)
-    return if station.nil?
+    return unless station
     station.show_trains_by_types
   end
 
