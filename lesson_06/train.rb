@@ -7,7 +7,7 @@ class Train
     attr_accessor :trains
 
     def find(number)
-      self.trains ||= Hash.new
+      self.trains ||= {}
       @trains[number]
     end
   end
@@ -26,7 +26,7 @@ class Train
     else
       @type = :passenger
     end
-    self.class.trains ||= Hash.new
+    self.class.trains ||= {}
     self.class.trains[number] = self
     register_instance
   end

@@ -18,7 +18,8 @@ class Station
     @name = name
     @freight_trains = {}
     @passenger_trains = {}
-    self.class.stations ||= Hash.new
+    self.class.stations ||= {}
+    # https://github.com/Rick-ROR/Lessons_ruby/commit/9e9bf254bb0999cfa541b82341a3e934ea60b12a#commitcomment-32230331
     self.class.stations[name] = self
     register_instance
   end

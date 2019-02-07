@@ -14,7 +14,6 @@ module InstanceCounter
     def instances
       # puts 'ClassMethods'
       self.count_insts ||= 0
-      self.count_insts
     end
   end
 
