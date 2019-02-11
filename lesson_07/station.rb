@@ -3,6 +3,7 @@
 
 class Station
   include InstanceCounter
+  include Validate
 
   class << self
     attr_accessor :stations
@@ -15,7 +16,8 @@ class Station
   attr_reader :name
 
   def initialize(name)
-    @name = name
+    @name = name.to_s
+    validate!
     @freight_trains = {}
     @passenger_trains = {}
     self.class.stations ||= {}
