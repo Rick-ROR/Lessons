@@ -28,7 +28,7 @@ class Train
     register_instance
   end
 
-# добавляем один вагон
+  # добавляем один вагон
   def add_wagon(wagon)
     # останавливаем поезд прежде чем отсоединить вагон
     self.speed_stop unless stopped?
@@ -36,7 +36,7 @@ class Train
     puts "Поезд #{@number} присоединил вагон и может продолжить движение."
   end
 
-# отсоединяем один вагон
+  # отсоединяем один вагон
   def del_wagon
     # если вагонов уже нет, выводим сообщение и выходим
     if @wagons.size.zero?
@@ -49,7 +49,7 @@ class Train
     puts "Поезд #{@number} отсоединил вагон и может продолжить движение."
   end
 
-# передаём поезду маршрут
+  # передаём поезду маршрут
   def set_route(route)
     # поидее надо проверять, что route это объект класса Route
     @route = route
@@ -61,7 +61,7 @@ class Train
     puts "Поезд #{@number} находится на станции #{@current_station}."
   end
 
-# отправляем поезд на следующую станцию
+  # отправляем поезд на следующую станцию
   def next
     if @route.nil?
       puts "Сначала нужно задать маршрут!"
@@ -84,7 +84,7 @@ class Train
     puts "Поезд #{@number} прибыл на станцию #{@current_station}."
   end
 
-# отправляем поезд на предыдущую станцию
+  # отправляем поезд на предыдущую станцию
   def prev
     if @route.nil?
       puts "Сначала нужно задать маршрут!"
@@ -107,7 +107,7 @@ class Train
     puts "Поезд #{@number} прибыл на станцию #{@current_station}."
   end
 
-# показывем следующую станцию
+  # показывем следующую станцию
   def next_show
     if @route.nil?
       puts "Сначала нужно задать маршрут!"
@@ -122,7 +122,7 @@ class Train
     puts "Следующая станция #{stations[index + 1]}."
   end
 
-# показывем прошлую станцию
+  # показывем прошлую станцию
   def prev_show
     if @route.nil?
       puts "Сначала нужно задать маршрут!"
@@ -138,23 +138,24 @@ class Train
   end
 
   def each_wagon
-    @wagons.each {|wagon| yield(wagon)}
+    @wagons.each { |wagon| yield(wagon) }
   end
 
-# так как эти методы не указаны в ТЗ интерфейса и используются только в методах объекта
- protected
+  # так как эти методы не указаны в ТЗ интерфейса и используются только в методах объекта
+  protected
+
   def validate!
     unless number.match? /^[a-z0-9]{3}-?[a-z0-9]{2}$/i
       raise 'Формат номера должен соотвествовать шаблону XXX-XX, где X число или буква'
     end
   end
 
-# вовзращает true если 0
+  # вовзращает true если 0
   def stopped?
     @speed.zero?
   end
 
-# ускрояем поезд на +10
+  # ускрояем поезд на +10
   def speed_up
     unless :current_station
       puts 'Сначала нужно задать маршрут!'
@@ -164,7 +165,7 @@ class Train
     puts "Внимание! Поезд #{@number} увеличивает скорость."
   end
 
-# останаливаем поезд
+  # останаливаем поезд
   def speed_stop
     puts "Внимание! Поезд #{@number} останаливается."
     @speed = 0

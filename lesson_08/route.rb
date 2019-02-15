@@ -64,6 +64,7 @@ class Route
   end
 
   protected
+
   def validate!
     station = route_hsh.values
     station.each do |station|

@@ -26,7 +26,7 @@ class Station
     register_instance
   end
 
-# поезд прибывает на станцию
+  # поезд прибывает на станцию
   def arrival_train(train)
     if train.is_a?(CargoTrain)
       @cargo_trains[train.number] = train
@@ -35,7 +35,7 @@ class Station
     end
   end
 
-# поезд отбывает со станции
+  # поезд отбывает со станции
   def departure_trains(train)
     if train.is_a?(CargoTrain)
       @cargo_trains.delete(train.number)
@@ -44,22 +44,22 @@ class Station
     end
   end
 
-# показывает сколько поездов по типам и список для каждого
+  # показывает сколько поездов по типам и список для каждого
   def show_trains_by_types
     puts "Всего поездов на станции:"
     puts "#{@cargo_trains.keys.size} Грузовых: #{@cargo_trains.keys.join(", ")}"
     puts "#{@passenger_trains.keys.size} Пассажирских: #{@passenger_trains.keys.join(", ")}"
   end
 
-# список поездов без разделения по типу
+  # список поездов без разделения по типу
   def show_trains_all
     trains = @cargo_trains.merge(@passenger_trains)
     puts "Всего поездов на станции: #{trains.keys.size}"
-    puts "#{trains.keys.join(", ")}"
+    puts trains.keys.join(", ")
   end
 
   def each_train
     all_trains = @passenger_trains.merge(@cargo_trains)
-    all_trains.values.each {|train| yield(train)}
+    all_trains.values.each { |train| yield(train) }
   end
 end
