@@ -1,7 +1,7 @@
 #!/usr/bin/ruby -w
 # coding: utf-8
 #
-# модуль-счётчик истанс объётов класса
+# модуль-счётчик инстанс объектов класса
 module InstanceCounter
 
   def self.included(base)

@@ -3,14 +3,14 @@
 #
 # класс Станций
 class Station
-  include InstanceCounter
   include Validate
+  include InstanceCounter
 
   class << self
     attr_accessor :stations
 
     def all
-     @stations
+      @stations
     end
   end
 

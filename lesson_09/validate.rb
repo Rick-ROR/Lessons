@@ -4,6 +4,7 @@
 # модуль валидации номеров и имён
 module Validate
   REGEX = /^[a-zа-я0-9]+$/i
+
   def valid?
     validate!
     true

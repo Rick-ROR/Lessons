@@ -3,8 +3,8 @@
 #
 # класс Маршрутов
 class Route
-  include InstanceCounter
   include Validate
+  include InstanceCounter
 
   attr_reader :route_hsh
 

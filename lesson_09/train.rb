@@ -126,7 +126,7 @@ class Train
   # показывем прошлую станцию
   def prev_show
     if @route.nil?
-      puts "Сначала нужно задать маршрут!"
+      puts 'Сначала нужно задать маршрут!'
       return
     end
     stations = @route.route_hsh.keys
@@ -151,7 +151,7 @@ class Train
     end
   end
 
-  # вовзращает true если 0
+  # возвращает true если 0
   def stopped?
     @speed.zero?
   end
