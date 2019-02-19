@@ -1,5 +1,5 @@
 #!/usr/bin/ruby -w
-# coding: utf-8
+
 require_relative 'name_company'
 require_relative 'validate'
 require_relative 'counter'
@@ -14,7 +14,6 @@ trap 'SIGINT' do
 end
 
 class Railway
-
   def initialize
     @stations = {}
     @routes = {}
@@ -28,13 +27,13 @@ class Railway
   def main_menu
     text =
       ['Главное меню:',
-      '1 - управление станциями',
-      '2 - управление маршрутами',
-      '3 - управление поездами',
-      '0 - выход']
+       '1 - управление станциями',
+       '2 - управление маршрутами',
+       '3 - управление поездами',
+       '0 - выход']
 
     loop do
-      text.each { |msg| puts msg }
+      text.each(&puts)
       print "Ваш выбор:\t"
       user = gets.chomp
       next unless number?(user)
@@ -51,7 +50,6 @@ class Railway
 
   private
 
-  # оставил комментарий https://github.com/Rick-ROR/Lessons_ruby/commit/81a31650d87bfc7b18472a20f9721b49c203fad0#r32172759
   def number?(number)
     if number =~ /^\d+$/
       true
@@ -64,13 +62,13 @@ class Railway
   def menu_stations
     text =
       ['Меню управления станциями:',
-      '1 - создать станцию',
-      '2 - список станций',
-      '3 - список поездов на станции',
-      '0 - назад в главное меню']
+       '1 - создать станцию',
+       '2 - список станций',
+       '3 - список поездов на станции',
+       '0 - назад в главное меню']
 
     loop do
-      text.each { |msg| puts msg }
+      text.each(&puts)
       print "Ваш выбор:\t"
       user = gets.chomp
       next unless number?(user)
@@ -88,14 +86,14 @@ class Railway
   def menu_routes
     text =
       ['Меню управления маршрутами:',
-      '1 - создать маршрут',
-      '2 - добавить станцию в маршрут',
-      '3 - удалить станцию в маршрут',
-      '4 - просмотреть список станций на маршруте',
-      '0 - назад в главное меню']
+       '1 - создать маршрут',
+       '2 - добавить станцию в маршрут',
+       '3 - удалить станцию в маршрут',
+       '4 - просмотреть список станций на маршруте',
+       '0 - назад в главное меню']
 
     loop do
-      text.each { |msg| puts msg }
+      text.each(&puts)
       print "Ваш выбор:\t"
       user = gets.chomp
       next unless number?(user)
@@ -114,16 +112,16 @@ class Railway
   def menu_trains
     text =
       ['Меню управления поездами:',
-            '1 - создать поезд',
-            '2 - присоединить вагон',
-            '3 - отцепить вагон',
-            '4 - назначить маршрут',
-            '5 - следующая станция',
-            '6 - прошлая станция',
-            '0 - назад в главное меню']
+       '1 - создать поезд',
+       '2 - присоединить вагон',
+       '3 - отцепить вагон',
+       '4 - назначить маршрут',
+       '5 - следующая станция',
+       '6 - прошлая станция',
+       '0 - назад в главное меню']
 
     loop do
-      text.each { |msg| puts msg }
+      text.each(&puts)
       print "Ваш выбор:\t"
       user = gets.chomp
       next unless number?(user)
@@ -151,14 +149,14 @@ class Railway
     print "\nВыберите нужный элемент из списка:\t"
     user_choice = gets.to_i
 
-    if (0..keys.size - 1).include?(user_choice)
+    if (0..keys.size - 1).cover?(user_choice)
       hash[keys[user_choice]]
     else
       puts 'Данный элемент отсустувет в списке!'
     end
   end
 
-  # ================================= методы-меню для станций =========================
+  # ======================= методы-меню для станций =========================
   def menu_station_new
     retries ||= 0
     print "Ввведите название станции:\t"
@@ -168,8 +166,7 @@ class Railway
       return
     end
     @stations[name] = Station.new(name)
-    puts  "Станция #{name} создана."
-
+    puts "Станция #{name} создана."
   rescue RuntimeError => e
     puts e.message
     retry if (retries += 1) < 3
@@ -179,7 +176,7 @@ class Railway
     if @stations.nil?
       puts 'Список пуст.'
     else
-      @stations.keys.each_with_index { |key, index| print "= #{index}# #{key} = " }
+      @stations.keys.each_with_index { |k, i| print "= #{i}# #{k} = " }
       puts
     end
   end
@@ -192,7 +189,7 @@ class Railway
     station.show_trains_by_types
   end
 
-  # ================================= методы-меню для маршрутов =========================
+  # ======================= методы-меню для маршрутов =========================
   def menu_route_new
     retries ||= 0
     print "Ввведите название маршрута:\t"
@@ -211,7 +208,6 @@ class Railway
 
     @routes[name] = Route.new(first, last)
     puts "Маршрут #{name} создан."
-
   rescue RuntimeError => e
     puts e.message
     retry if (retries += 1) < 3
@@ -252,7 +248,7 @@ class Railway
     route.print_stations
   end
 
-  # ================================= методы-меню для поездов =========================
+  # =======================  методы-меню для поездов =========================
   def menu_train_new
     retries ||= 0
     print "Ввведите номер поезда:\t"
@@ -270,7 +266,6 @@ class Railway
       @trains[number] = PassengerTrain.new(number)
       puts "Пассажирский поезд с номером #{number} создан."
     end
-
   rescue RuntimeError => e
     puts e.message
     retry if (retries += 1) < 3
@@ -313,7 +308,7 @@ class Railway
     route = hash_select(@routes)
     return if route.nil?
 
-    train.set_route(route)
+    train.route_set(route)
   end
 
   def menu_train_set_next
@@ -329,7 +324,6 @@ class Railway
 
     train.prev
   end
-
 end
 
 railway = Railway.new
@@ -337,5 +331,3 @@ railway = Railway.new
 railway.greeting
 
 # railway.main_menu
-
-

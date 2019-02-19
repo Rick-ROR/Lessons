@@ -1,6 +1,5 @@
 #!/usr/bin/ruby -w
-# coding: utf-8
-#
+
 # класс Вагонов
 class Wagon
   include NameCompany

@@ -1,6 +1,5 @@
 #!/usr/bin/ruby -w
-# coding: utf-8
-#
+
 # класс Поездов
 class Train
   include Validate
@@ -32,7 +31,7 @@ class Train
   # добавляем один вагон
   def add_wagon(wagon)
     # останавливаем поезд прежде чем отсоединить вагон
-    self.speed_stop unless stopped?
+    speed_stop unless stopped?
     @wagons << wagon
     puts "Поезд #{@number} присоединил вагон и может продолжить движение."
   end
@@ -45,13 +44,13 @@ class Train
       return
     end
     # останваливаем поезд прежде чем отсоединить вагон
-    self.speed_stop unless stopped?
+    speed_stop unless stopped?
     @wagons.delete_at(-1)
     puts "Поезд #{@number} отсоединил вагон и может продолжить движение."
   end
 
   # передаём поезду маршрут
-  def set_route(route)
+  def route_set(route)
     # поидее надо проверять, что route это объект класса Route
     @route = route
     puts "#{@number}: Новый маршрут установлен."
@@ -76,11 +75,12 @@ class Train
       puts "Cтанция #{@current_station} является конечной в маршруте."
       return
     end
-    #отправляем поезд из станции departure_trains
+    # отправляем поезд из станции departure_trains
     route_hsh[@current_station].departure_trains(self)
     puts "Поезд #{@number} отправляется со станции #{@current_station}.."
-    #принимаем поезд на станции arrival_train и устанавливаем новую текущую @current_station
-    @current_station = stations[index+1]
+    # принимаем поезд на станции arrival_train и
+    # устанавливаем новую текущую @current_station
+    @current_station = stations[index + 1]
     route_hsh[@current_station].arrival_train(self)
     puts "Поезд #{@number} прибыл на станцию #{@current_station}."
   end
@@ -99,10 +99,11 @@ class Train
       puts "Cтанция #{@current_station} является начальной в маршруте."
       return
     end
-    #отправляем поезд из станции departure_trains
+    # отправляем поезд из станции departure_trains
     puts "Поезд #{@number} отправляется со станции #{@current_station}.."
     route[@current_station].departure_trains(self)
-    #принимаем поезд на станции arrival_train и устанавливаем новую текущую @current_station
+    # принимаем поезд на станции arrival_train и
+    # устанавливаем новую текущую @current_station
     @current_station = stations[index - 1]
     route[@current_station].arrival_train(self)
     puts "Поезд #{@number} прибыл на станцию #{@current_station}."
@@ -139,15 +140,21 @@ class Train
   end
 
   def each_wagon
-    @wagons.each { |wagon| yield(wagon) }
+    i = 0
+    @wagons.each do |wagon|
+      i += 1
+      yield(wagon, i)
+    end
   end
 
-  # так как эти методы не указаны в ТЗ интерфейса и используются только в методах объекта
+  # так как эти методы не указаны в ТЗ интерфейса и
+  # используются только в методах объекта
   protected
 
   def validate!
-    unless number.match? /^[a-z0-9]{3}-?[a-z0-9]{2}$/i
-      raise 'Формат номера должен соотвествовать шаблону XXX-XX, где X число или буква.'
+    unless number.match?(/^[a-z0-9]{3}-?[a-z0-9]{2}$/i)
+      raise 'Формат номера должен соотвествовать шаблону XXX-XX,'\
+              'где X число или буква.'
     end
   end
 
@@ -158,7 +165,7 @@ class Train
 
   # ускрояем поезд на +10
   def speed_up
-    unless :current_station
+    if :current_station.nil?
       puts 'Сначала нужно задать маршрут!'
       return
     end
@@ -171,7 +178,6 @@ class Train
     puts "Внимание! Поезд #{@number} останаливается."
     @speed = 0
   end
-
 end
 
 class PassengerTrain < Train
@@ -203,5 +209,3 @@ class CargoTrain < Train
     super
   end
 end
-
-

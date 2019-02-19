@@ -1,6 +1,5 @@
 #!/usr/bin/ruby -w
-# coding: utf-8
-#
+
 # класс Маршрутов
 class Route
   include Validate
@@ -9,7 +8,7 @@ class Route
   attr_reader :route_hsh
 
   def initialize(first, last)
-    @route_hsh = {first.name => first, last.name => last}
+    @route_hsh = { first.name => first, last.name => last }
     validate!
     register_instance
   end
@@ -45,7 +44,7 @@ class Route
   # удаляем станцию из маршрута
   def del_station(station)
     # получаем начальную и конечную станции
-    route_ends = @route_hsh.keys.values_at(0,-1)
+    route_ends = @route_hsh.keys.values_at(0, -1)
     # проверяем что станция есть на маршруте и что она не начальная или конечная
     if !@route_hsh.key?(station.name)
       puts "Станция #{station.name} не существует на данном маршруте!"
@@ -60,23 +59,24 @@ class Route
   # выводит список станций на маршруте с нумерацией
   def print_stations
     puts 'Данный маршрут состоит из следующих станций:'
-    @route_hsh.keys.each_with_index { |station, index| print "= #{index}# #{station} = " }
+    @route_hsh.keys.each_with_index do |station, index|
+      print "= #{index}# #{station} = "
+    end
     puts
   end
 
   protected
 
   def validate!
-    station = route_hsh.values
-    station.each do |station|
+    stations = route_hsh.values
+    stations.each do |station|
       unless station.is_a?(Station)
         raise 'Для создании маршрута используются только станции!'
       end
     end
 
-    if station.first.name == station.last.name
+    if stations.first.name == stations.last.name
       raise 'Конечные станции на маршруте не могут совпадать!'
     end
   end
-
 end

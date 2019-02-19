@@ -1,9 +1,7 @@
 #!/usr/bin/ruby -w
-# coding: utf-8
-#
+
 # модуль-счётчик инстанс объектов класса
 module InstanceCounter
-
   def self.included(base)
     base.extend ClassMethods
     base.send :include, InstanceMethods

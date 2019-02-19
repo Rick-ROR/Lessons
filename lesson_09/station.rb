@@ -1,6 +1,5 @@
 #!/usr/bin/ruby -w
-# coding: utf-8
-#
+
 # класс Станций
 class Station
   include Validate
@@ -48,8 +47,10 @@ class Station
   # показывает сколько поездов по типам и список для каждого
   def show_trains_by_types
     puts 'Всего поездов на станции:'
-    puts "#{@cargo_trains.keys.size} Грузовых: #{@cargo_trains.keys.join(', ')}"
-    puts "#{@passenger_trains.keys.size} Пассажирских: #{@passenger_trains.keys.join(', ')}"
+    puts "#{@cargo_trains.keys.size} "\
+            "Грузовых: #{@cargo_trains.keys.join(', ')}"
+    puts "#{@passenger_trains.keys.size} "\
+            "Пассажирских: #{@passenger_trains.keys.join(', ')}"
   end
 
   # список поездов без разделения по типу

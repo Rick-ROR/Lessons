@@ -1,9 +1,8 @@
 #!/usr/bin/ruby -w
-# coding: utf-8
-#
+
 # модуль валидации номеров и имён
 module Validate
-  REGEX = /^[a-zа-я0-9]+$/i
+  REGEX = /^[a-zа-я0-9]+$/i.freeze
 
   def valid?
     validate!
@@ -13,6 +12,7 @@ module Validate
   end
 
   protected
+
   def validate!
     raise 'Должны быть цифры и/или буквы!' unless name.match? REGEX
     raise 'Нужно ввести больше 2 знаков!' if name.length < 3
