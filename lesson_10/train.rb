@@ -15,6 +15,7 @@ class Train
       @trains[number]
     end
   end
+
   attr_reader :number, :current_station, :wagons
   attr_accessor_with_history :speed
 

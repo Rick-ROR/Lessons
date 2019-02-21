@@ -13,11 +13,17 @@ require_relative 'main'
 puts 'Создаём поезда ..'
 w455 = CargoTrain.new('455-22')
 w459 = PassengerTrain.new('459-55')
+puts 'Создаём поезда с неверным номером ..'
+w460 = PassengerTrain.new('460d55')
+puts "#{w460.instance_variables}"
+puts "#{w460.class.instance_variables}"
 
 puts 'Создаём станции ..'
 moscow = Station.new('Москва')
 spb = Station.new('Питер')
 tver = Station.new('Тверь')
+puts "#{tver.instance_variables}"
+puts "#{tver.class.instance_variables}"
 
 puts 'Создаём маршруты ..'
 msk_spb = Route.new(moscow, spb)
@@ -39,7 +45,7 @@ w459.add_wagon(PassengerWagon.new(16))
 
 puts '#' * 70
 puts 'Изменяем скорость поезда и  провеяем accessor speed_history'
-puts "#{w459.public_methods}"
+# puts "#{w459.public_methods}"
 puts "#{w459.instance_variables}"
 puts "speed_history = #{w459.speed_history}"
 w459.speed_up
