@@ -13,17 +13,22 @@ require_relative 'main'
 puts 'Создаём поезда ..'
 w455 = CargoTrain.new('455-22')
 w459 = PassengerTrain.new('459-55')
-puts 'Создаём поезда с неверным номером ..'
-w460 = PassengerTrain.new('460d55')
-puts "#{w460.instance_variables}"
-puts "#{w460.class.instance_variables}"
+puts 'Создаём поезд с неверным номером ..'
+w460 = PassengerTrain.new('**')
+
 
 puts 'Создаём станции ..'
+puts 'Создаём станцию .. Москва'
 moscow = Station.new('Москва')
+puts 'Создаём станцию .. Питер'
 spb = Station.new('Питер')
+puts 'Создаём станцию .. Тверь'
 tver = Station.new('Тверь')
-puts "#{tver.instance_variables}"
-puts "#{tver.class.instance_variables}"
+puts "Проверим станцию на валидность .."
+puts "tver.valid? #{tver.valid?}"
+
+puts "Создаём станцию с неверным типом nil для имени, проверяем strong_attr_accessor .."
+none = Station.new(nil)
 
 puts 'Создаём маршруты ..'
 msk_spb = Route.new(moscow, spb)
@@ -44,14 +49,13 @@ w459.add_wagon(PassengerWagon.new(32))
 w459.add_wagon(PassengerWagon.new(16))
 
 puts '#' * 70
-puts 'Изменяем скорость поезда и  провеяем accessor speed_history'
-# puts "#{w459.public_methods}"
-puts "#{w459.instance_variables}"
+puts 'Изменяем скорость поезда и  проверяем accessor speed_history'
+
+puts "instance_variables = #{w459.instance_variables}"
 puts "speed_history = #{w459.speed_history}"
 w459.speed_up
 w459.speed_up
 w459.speed_up
-puts "#{w459.instance_variables}"
 puts "speed_history = #{w459.speed_history}"
 
 msk_spb.route_hsh.values.each do |station|

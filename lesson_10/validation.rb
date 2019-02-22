@@ -7,17 +7,24 @@ module Validate
   end
 
   module ClassMethods
-    attr_reader :validations
+    @@validations = []
 
-    def validate(name, type, arg = nil)
-      @validations ||= []
-      @validations << {name: name, type: type, arg: arg}
-      # puts "#{@validations}"
+
+    def validations
+      @@validations
+    end
+
+    def validations=(value)
+      @@validations.push(value)
+    end
+
+    def validate(class_name, name, type, arg = nil)
+      self.validations = { class_name: class_name, name: name, type: type, arg: arg }
     end
   end
 
   module InstanceMethods
-    REGEX = /^[a-zа-я0-9]+$/i.freeze
+    REGEX = /^[a-zа-я0-9-]+$/i.freeze
 
     def valid?
       validate!
@@ -34,7 +41,7 @@ module Validate
 
     def valid_format(value, regex)
       regex = REGEX if regex.nil?
-      raise "Значение имеет неверный формат! Допустимый формат: #{regex.to_s}"  if value !~ regex
+      raise "Значение #{value} имеет неверный формат! Допустимый формат: #{regex.to_s}"  if value !~ regex
     end
 
     def valid_type(value, type)
@@ -42,8 +49,8 @@ module Validate
     end
 
     def validate!
-      # print "#{self.class.validations} \n"
       self.class.validations.each do |validation|
+        next if self.class.superclass.name != validation[:class_name]
         method = "valid_#{validation[:type]}".to_sym
         value = instance_variable_get("@#{validation[:name]}".to_sym)
         send(method, value, validation[:arg])

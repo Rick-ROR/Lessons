@@ -19,15 +19,14 @@ class Train
   attr_reader :number, :current_station, :wagons
   attr_accessor_with_history :speed
 
-  validate :number, :presence
-  validate :number, :format, /^[a-z0-9]{3}-?[a-z0-9]{2}$/i
-  validate :number, :type, String
+  validate self.name, :number, :presence
+  validate self.name, :number, :format, /^[a-z0-9]{3}-?[a-z0-9]{2}$/i
+  validate self.name, :number, :type, String
 
   def initialize(number)
     @number = number.to_s
     validate!
     @wagons = []
-    # @speed = 0
     self.speed = 0
     @route = nil
     self.class.trains ||= {}
@@ -163,20 +162,12 @@ class Train
       return
     end
     self.speed += 10
-    # @speed += 10
     puts "Внимание! Поезд #{@number} увеличивает скорость."
   end
 
   # так как эти методы не указаны в ТЗ интерфейса и
   # используются только в методах объекта
   protected
-
-  # def validate!
-  #   unless number.match?(/^[a-z0-9]{3}-?[a-z0-9]{2}$/i)
-  #     raise 'Формат номера должен соотвествовать шаблону XXX-XX,'\
-  #             'где X число или буква.'
-  #   end
-  # end
 
   # возвращает true если 0
   def stopped?
@@ -191,10 +182,6 @@ class Train
 end
 
 class PassengerTrain < Train
-  validate :number, :presence
-  validate :number, :format, /^[a-z0-9]{3}-?[a-z0-9]{2}$/i
-  validate :number, :type, String
-
   # добавляем один вагон
   def add_wagon(wagon)
     unless wagon.is_a?(PassengerWagon)
@@ -206,10 +193,6 @@ class PassengerTrain < Train
 end
 
 class CargoTrain < Train
-  validate :number, :presence
-  validate :number, :format, /^[a-z0-9]{3}-?[a-z0-9]{2}$/i
-  validate :number, :type, String
-
   # добавляем один вагон
   def add_wagon(wagon)
     unless wagon.is_a?(CargoWagon)

@@ -13,14 +13,12 @@ class Station
       @stations
     end
   end
-
-  attr_reader :name
-
-  validate :name, :presence
-  validate :name, :type, String
+  strong_attr_accessor :name, String
+  # attr_reader :name
+  validate self.name, :name, :presence
 
   def initialize(name)
-    @name = name.to_s
+    self.name = name
     validate!
     @cargo_trains = {}
     @passenger_trains = {}
@@ -28,6 +26,8 @@ class Station
     # https://github.com/Rick-ROR/Lessons_ruby/commit/9e9bf254bb0999cfa541b82341a3e934ea60b12a#r32230331
     self.class.stations[name] = self
     register_instance
+  rescue RuntimeError, TypeError => e
+    puts e.message
   end
 
   # поезд прибывает на станцию

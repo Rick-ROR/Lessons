@@ -22,7 +22,7 @@ module MyAttrAccessor
 
     define_method(name) { instance_variable_get(var_name) }
     define_method("#{name}=".to_sym) do |value|
-        raise TypeError, 'Не совпадает тип значения!'  unless value.is_a?(class_value)
+        raise TypeError, "\"#{value}\" не является типом #{class_value}!" unless value.is_a?(class_value)
         instance_variable_set(var_name, value)
     end
   end
