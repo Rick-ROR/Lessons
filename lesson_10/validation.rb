@@ -12,7 +12,7 @@ module Validate
     def validate(name, type, arg = nil)
       @validations ||= []
       @validations << {name: name, type: type, arg: arg}
-      puts "#{@validations}"
+      # puts "#{@validations}"
     end
   end
 
@@ -32,8 +32,8 @@ module Validate
       raise 'Значение не может быть пустым!' if value.nil? || value == ''
     end
 
-    def valid_format(value, regex = REGEX)
-      # puts regex
+    def valid_format(value, regex)
+      regex = REGEX if regex.nil?
       raise "Значение имеет неверный формат! Допустимый формат: #{regex.to_s}"  if value !~ regex
     end
 

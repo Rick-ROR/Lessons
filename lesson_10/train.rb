@@ -25,7 +25,7 @@ class Train
 
   def initialize(number)
     @number = number.to_s
-    # validate!
+    validate!
     @wagons = []
     # @speed = 0
     self.speed = 0
@@ -33,6 +33,8 @@ class Train
     self.class.trains ||= {}
     self.class.trains[number] = self
     register_instance
+  rescue RuntimeError => e
+    puts e.message
   end
 
   # добавляем один вагон
@@ -189,9 +191,9 @@ class Train
 end
 
 class PassengerTrain < Train
-  def initialize(number)
-    super(number)
-  end
+  validate :number, :presence
+  validate :number, :format, /^[a-z0-9]{3}-?[a-z0-9]{2}$/i
+  validate :number, :type, String
 
   # добавляем один вагон
   def add_wagon(wagon)
@@ -204,9 +206,9 @@ class PassengerTrain < Train
 end
 
 class CargoTrain < Train
-  def initialize(number)
-    super(number)
-  end
+  validate :number, :presence
+  validate :number, :format, /^[a-z0-9]{3}-?[a-z0-9]{2}$/i
+  validate :number, :type, String
 
   # добавляем один вагон
   def add_wagon(wagon)
